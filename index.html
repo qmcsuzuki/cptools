@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>組み合わせ計算 nCk</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>競プロ用 nCk 計算</h1>
+        <p>n と k を入力すると組み合わせ数を計算します。</p>
+      </header>
+
+      <section class="card">
+        <form id="nck-form">
+          <label for="n-input">n</label>
+          <input id="n-input" name="n" type="number" min="0" step="1" placeholder="例: 10" required />
+
+          <label for="k-input">k</label>
+          <input id="k-input" name="k" type="number" min="0" step="1" placeholder="例: 3" required />
+
+          <button type="submit">nCk を計算</button>
+        </form>
+
+        <div class="result" aria-live="polite">
+          <h2>結果</h2>
+          <output id="result-output">ここに結果が表示されます。</output>
+        </div>
+        <p class="hint" id="hint-text"></p>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
