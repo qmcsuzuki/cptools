@@ -70,6 +70,25 @@ button:hover {
   padding: 16px;
 }
 
+.result-list {
+  display: grid;
+  gap: 12px;
+  margin: 12px 0 0;
+}
+
+.result-list div {
+  display: grid;
+  gap: 4px;
+}
+
+dt {
+  font-weight: 600;
+}
+
+dd {
+  margin: 0;
+}
+
 output {
   display: block;
   margin-top: 8px;

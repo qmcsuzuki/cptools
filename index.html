@@ -10,7 +10,7 @@
     <main class="container">
       <header>
         <h1>競プロ用 nCk 計算</h1>
-        <p>n と k を入力すると組み合わせ数を計算します。</p>
+        <p>n と k を入力すると、組み合わせ数や順列数、分割数を計算します。</p>
       </header>
 
       <section class="card">
@@ -26,7 +26,20 @@
 
         <div class="result" aria-live="polite">
           <h2>結果</h2>
-          <output id="result-output">ここに結果が表示されます。</output>
+          <dl class="result-list">
+            <div>
+              <dt>nCk (組み合わせ)</dt>
+              <dd><output id="combination-output">ここに結果が表示されます。</output></dd>
+            </div>
+            <div>
+              <dt>nPk (順列)</dt>
+              <dd><output id="permutation-output">ここに結果が表示されます。</output></dd>
+            </div>
+            <div>
+              <dt>p(n) (分割数)</dt>
+              <dd><output id="partition-output">ここに結果が表示されます。</output></dd>
+            </div>
+          </dl>
         </div>
         <p class="hint" id="hint-text"></p>
       </section>
