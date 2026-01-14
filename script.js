@@ -1,8 +1,10 @@
-const form = document.getElementById("nck-form");
-const combinationOutput = document.getElementById("combination-output");
-const permutationOutput = document.getElementById("permutation-output");
-const partitionOutput = document.getElementById("partition-output");
-const hintText = document.getElementById("hint-text");
+const getInputValue = (form, name) => {
+  const field = form.elements.namedItem(name);
+  if (field instanceof HTMLInputElement) {
+    return field.value;
+  }
+  return "";
+};
 
 const toBigInt = (value) => {
   if (!Number.isInteger(value) || value < 0) {
@@ -62,46 +64,58 @@ const computePartition = (n) => {
   return dp[limit];
 };
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-  hintText.textContent = "";
-  combinationOutput.textContent = "計算中...";
-  permutationOutput.textContent = "計算中...";
-  partitionOutput.textContent = "計算中...";
+window.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("nck-form");
+  const combinationOutput = document.getElementById("combination-output");
+  const permutationOutput = document.getElementById("permutation-output");
+  const partitionOutput = document.getElementById("partition-output");
+  const hintText = document.getElementById("hint-text");
 
-  const nValue = Number(form.elements.n.value);
-  const kValue = Number(form.elements.k.value);
-  const n = toBigInt(nValue);
-  const k = toBigInt(kValue);
-
-  if (n === null || k === null) {
-    combinationOutput.textContent = "入力は0以上の整数にしてください。";
-    permutationOutput.textContent = "入力は0以上の整数にしてください。";
-    partitionOutput.textContent = "入力は0以上の整数にしてください。";
+  if (!form || !combinationOutput || !permutationOutput || !partitionOutput || !hintText) {
     return;
   }
 
-  const combination = computeCombination(n, k);
-  const permutation = computePermutation(n, k);
-  if (combination === null || permutation === null) {
-    combinationOutput.textContent = "k は n 以下で指定してください。";
-    permutationOutput.textContent = "k は n 以下で指定してください。";
-    partitionOutput.textContent = "n を使って分割数を計算できます。";
-    return;
-  }
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    hintText.textContent = "";
+    combinationOutput.textContent = "計算中...";
+    permutationOutput.textContent = "計算中...";
+    partitionOutput.textContent = "計算中...";
 
-  const partition = computePartition(n);
+    const nValue = Number(getInputValue(form, "n"));
+    const kValue = Number(getInputValue(form, "k"));
+    const n = toBigInt(nValue);
+    const k = toBigInt(kValue);
 
-  combinationOutput.textContent = combination.toString();
-  permutationOutput.textContent = permutation.toString();
-  if (partition === null) {
-    partitionOutput.textContent = "p(n) の計算に失敗しました。";
-  } else if (typeof partition === "string") {
-    partitionOutput.textContent = partition;
-  } else {
-    partitionOutput.textContent = partition.toString();
-  }
+    if (n === null || k === null) {
+      combinationOutput.textContent = "入力は0以上の整数にしてください。";
+      permutationOutput.textContent = "入力は0以上の整数にしてください。";
+      partitionOutput.textContent = "入力は0以上の整数にしてください。";
+      return;
+    }
 
-  hintText.textContent =
-    "BigInt で計算するので大きな値にも対応できます (p(n) は n ≤ 400)。";
+    const combination = computeCombination(n, k);
+    const permutation = computePermutation(n, k);
+    if (combination === null || permutation === null) {
+      combinationOutput.textContent = "k は n 以下で指定してください。";
+      permutationOutput.textContent = "k は n 以下で指定してください。";
+      partitionOutput.textContent = "n を使って分割数を計算できます。";
+      return;
+    }
+
+    const partition = computePartition(n);
+
+    combinationOutput.textContent = combination.toString();
+    permutationOutput.textContent = permutation.toString();
+    if (partition === null) {
+      partitionOutput.textContent = "p(n) の計算に失敗しました。";
+    } else if (typeof partition === "string") {
+      partitionOutput.textContent = partition;
+    } else {
+      partitionOutput.textContent = partition.toString();
+    }
+
+    hintText.textContent =
+      "BigInt で計算するので大きな値にも対応できます (p(n) は n ≤ 400)。";
+  });
 });
